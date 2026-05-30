@@ -8,22 +8,18 @@ services:
     dockerfilePath: ./Dockerfile
     plan: free
 
-    # --- Environment Variables ---
-    # Set these in Render Dashboard > Environment tab
-    # DO NOT hardcode credentials here
     envVars:
       - key: NAUKRI_USERNAME
-        sync: false          # You fill this in Render dashboard
+        sync: false          # Set this in Render Dashboard
       - key: NAUKRI_PASSWORD
-        sync: false          # You fill this in Render dashboard
+        sync: false          # Set this in Render Dashboard
       - key: SEARCH_KEYWORDS
-        value: "SDET, QA Automation Engineer"
+        value: "SDE, Software Development Engineer, SDE-1, SDE-2, Software Engineer, Backend Engineer, Full Stack Developer, Frontend Developer, AIML Engineer, AI Engineer, ML Engineer, Machine Learning Engineer, Data Scientist, Data Engineer, MLOps Engineer, LLM Engineer, GenAI Engineer, NLP Engineer, Computer Vision Engineer, Deep Learning Engineer, SDET, QA Automation Engineer, DevOps Engineer, Site Reliability Engineer, Platform Engineer, Cloud Engineer, Java Developer, Python Developer, Node.js Developer, React Developer, Spring Boot Developer, Microservices Engineer"
       - key: CANDIDATE_EXPERIENCE
         value: "4"
       - key: CANDIDATE_LOCATIONS
-        value: "Indore, Pune, Noida"
+        value: "Indore, Pune, Noida, Bangalore, Hyderabad, Mumbai, Remote"
       - key: MAX_JOBS_TO_APPLY
-        value: "20"
+        value: "999999"
 
-    # Health check endpoint (keep-alive server handles this)
     healthCheckPath: /
