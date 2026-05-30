@@ -6,34 +6,34 @@ Automatically applies to jobs on Naukri.com 24/7. Runs on Render.com for free.
 
 ## 🚀 Deploy in 3 Steps
 
-### Step 1 — Go to Render
-1. [render.com](https://render.com) → **New** → **Web Service**
-2. Connect GitHub → select `aryanbarde80/naukri-automation`
-3. `render.yaml` auto-detect hoga → **Deploy** click karo
+### Step 1 — Create a Web Service on Render
+1. Go to [render.com](https://render.com) → **New** → **Web Service**
+2. Connect your GitHub account → select `aryanbarde80/naukri-automation`
+3. Render will auto-detect `render.yaml` → click **Deploy**
 
 ### Step 2 — Set 2 Environment Variables
 Render Dashboard → your service → **Environment** tab:
 
 | Variable | Value |
 |---|---|
-| `NAUKRI_USERNAME` | tera naukri email |
-| `NAUKRI_PASSWORD` | tera naukri password |
+| `NAUKRI_USERNAME` | Your Naukri login email |
+| `NAUKRI_PASSWORD` | Your Naukri password |
 
-**Save Changes** → auto redeploy. Done ✅
+Click **Save Changes** → service will redeploy automatically. Done ✅
 
-### Step 3 — Kuch nahi
-Baaki sab already set hai. Server khud ping karta hai har 14 min mein. Koi extra tool nahi chahiye.
+### Step 3 — Nothing Else
+Everything else is pre-configured. The server pings itself every 14 minutes to stay alive. No external tools needed.
 
 ---
 
-## ⚙️ Kya Kya Set Hai By Default
+## ⚙️ Default Configuration
 
 | Setting | Value |
 |---|---|
 | **Jobs per run** | Unlimited |
-| **Automation schedule** | Har 6 ghante |
-| **Keep-alive ping** | Har 14 min (built-in) |
-| **Browser mode** | Headless (server pe chalega) |
+| **Automation schedule** | Every 6 hours |
+| **Keep-alive ping** | Every 14 minutes (built-in) |
+| **Browser mode** | Headless |
 | **Locations** | Indore, Pune, Noida, Bangalore, Hyderabad, Mumbai, Remote |
 | **Experience** | 4 years |
 
@@ -51,9 +51,9 @@ Baaki sab already set hai. Server khud ping karta hai har 14 min mein. Koi extra
 
 ---
 
-## 🔧 Customize Karna Ho Toh
+## 🔧 Optional Customization
 
-Render Dashboard → Environment tab mein ye optional vars add kar sakte ho:
+Add these environment variables in Render Dashboard → Environment tab to override defaults:
 
 | Variable | Example |
 |---|---|
@@ -67,40 +67,40 @@ Render Dashboard → Environment tab mein ye optional vars add kar sakte ho:
 ## 📁 Project Structure
 
 ```
-├── Dockerfile                        # Chrome + Java 17 Docker image
-├── render.yaml                       # Render auto-deployment config
-├── start.sh                          # Keep-alive server + scheduler + self-ping
-├── pom.xml                           # Maven dependencies
+├── Dockerfile                         # Chrome + Java 17 Docker image
+├── render.yaml                        # Render deployment config
+├── start.sh                           # Keep-alive server + scheduler + self-ping
+├── pom.xml                            # Maven dependencies
 └── src/main/
     ├── java/com/naukri/automation/
-    │   ├── config/ConfigManager.java  # Reads config.properties
+    │   ├── config/ConfigManager.java   # Reads config.properties
     │   ├── pages/
-    │   │   ├── LoginPage.java         # Naukri login
-    │   │   ├── SearchPage.java        # Job search + filters
-    │   │   ├── JobDetailsPage.java    # Apply logic
-    │   │   └── BasePage.java          # Selenium base utilities
-    │   ├── runner/TestRunner.java     # Main entry point
+    │   │   ├── LoginPage.java          # Naukri login
+    │   │   ├── SearchPage.java         # Job search + filters
+    │   │   ├── JobDetailsPage.java     # Apply logic
+    │   │   └── BasePage.java           # Selenium base utilities
+    │   ├── runner/TestRunner.java      # Main entry point
     │   └── utils/
-    │       ├── DriverFactory.java     # Chrome setup (headless)
-    │       ├── DatabaseUtil.java      # Tracks applied jobs (no re-apply)
-    │       ├── ReportUtil.java        # CSV report of applied jobs
-    │       └── ScreenshotUtil.java    # Screenshots on failure
+    │       ├── DriverFactory.java      # Chrome setup (headless)
+    │       ├── DatabaseUtil.java       # Tracks applied jobs (prevents re-apply)
+    │       ├── ReportUtil.java         # CSV report of applied jobs
+    │       └── ScreenshotUtil.java     # Screenshots on failure
     └── resources/
-        └── config.properties          # All settings (overridden by env vars)
+        └── config.properties           # All settings (overridden by env vars)
 ```
 
 ---
 
 ## ❓ FAQ
 
-**Resume upload hoga kya?**
-Naukri pe tumhara resume already profile pe uploaded hai. Automation wahi use karta hai — alag se kuch nahi karna.
+**Will my resume be attached?**
+Yes. The automation uses the resume already uploaded to your Naukri profile. No extra setup needed.
 
-**Duplicate apply nahi hoga?**
-Nahi. `DatabaseUtil` applied jobs track karta hai locally. Same job dobara apply nahi hoga.
+**Will it apply to the same job twice?**
+No. `DatabaseUtil` tracks every applied job locally. Duplicates are skipped automatically.
 
-**Free plan pe server so jayega?**
-Nahi. Built-in self-ping har 14 min mein server ko jagaye rakhta hai.
+**Will the free-tier server sleep?**
+No. A built-in self-ping runs every 14 minutes to keep the server awake.
 
-**Kitni jobs apply hogi?**
-Unlimited — jitni milein. Ek run mein sab cover hota hai.
+**How many jobs will it apply to?**
+Unlimited. Every run processes as many matching jobs as it finds.
