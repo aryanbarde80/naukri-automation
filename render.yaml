@@ -1,0 +1,29 @@
+# ============================================================
+#  render.yaml - Render.com Deployment Configuration
+# ============================================================
+services:
+  - type: web
+    name: naukri-automation
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+
+    # --- Environment Variables ---
+    # Set these in Render Dashboard > Environment tab
+    # DO NOT hardcode credentials here
+    envVars:
+      - key: NAUKRI_USERNAME
+        sync: false          # You fill this in Render dashboard
+      - key: NAUKRI_PASSWORD
+        sync: false          # You fill this in Render dashboard
+      - key: SEARCH_KEYWORDS
+        value: "SDET, QA Automation Engineer"
+      - key: CANDIDATE_EXPERIENCE
+        value: "4"
+      - key: CANDIDATE_LOCATIONS
+        value: "Indore, Pune, Noida"
+      - key: MAX_JOBS_TO_APPLY
+        value: "20"
+
+    # Health check endpoint (keep-alive server handles this)
+    healthCheckPath: /
